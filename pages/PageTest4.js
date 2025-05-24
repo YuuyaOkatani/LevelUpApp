@@ -42,6 +42,8 @@ export default function PageTest4({route, navigation}) {
   let updateQuery = new DBquery();
   let obj = route.params;
 
+  const [questTypeName, setQuestTypeName] = useState();
+
   function setQuestoesMateria() {
     dispatch(updateQuestoes());
     dispatch(updateMateria());
@@ -72,6 +74,7 @@ export default function PageTest4({route, navigation}) {
   useFocusEffect(
     useCallback(() => {
       setQuestoesMateria();
+      handleQuestType(obj.class);
       return () => {
         setQuestoesMateria();
         setQuestName('');
@@ -84,6 +87,17 @@ export default function PageTest4({route, navigation}) {
       };
     }, []),
   );
+  const selectData = QuestType.map((q, index) => ({
+    key: index.toString(),
+    name: q.name,
+    value: q.value,
+  }));
+
+  function handleQuestType(val) {
+    const selectedObj = selectData.find(item => item.value === val);
+    setQuestTypeName(selectedObj.name);
+    setQuestType(val);
+  }
 
   return (
     <Container>
@@ -98,10 +112,9 @@ export default function PageTest4({route, navigation}) {
       <View style={{gap: 10}}>
         <View>
           <SelectList
-            setSelected={val => setQuestType(val)}
+            setSelected={val => handleQuestType(val)}
             data={QuestType}
-            placeholder={`${obj.class}`}
-            defaultOption={{value: obj.class}}
+            placeholder={questTypeName}
             save="value"
             search={false}
             dropdownTextStyles={[

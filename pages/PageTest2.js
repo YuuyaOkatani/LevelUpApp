@@ -110,9 +110,10 @@ export default function PageTest2({route, navigation}) {
       <View style={{gap: 10}}>
         <View>
           <SelectList
-            setSelected={val => setSelectedTopico(val)}
+            setSelected={val => {
+              setSelectedTopico(val);
+            }}
             data={questoes}
-            save="value"
             placeholder="Select topic"
             search={false}
             dropdownTextStyles={[styles.textStyle, {fontSize: 20}]}

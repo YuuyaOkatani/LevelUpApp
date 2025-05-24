@@ -190,8 +190,7 @@ export default function PageTest1({navigation}) {
                               },
                             ]}>
                             {' '}
-                            Fazer {item.quantity}
-                            {' de '} {item.topic}
+                            Do {item.quantity}x{' of '} {item.topic}
                           </Text>
                         )) || (
                           <Text style={{color: 'white', fontSize: 20}}>

@@ -1,14 +1,17 @@
-
+import * as React from 'react';
+import uuid from 'react-native-uuid';
 import {Container} from '../components/Container';
 
 import {useCallback, useState, useEffect} from 'react';
 import DBquery from '../functions/DBquery';
+import {MMKV} from 'react-native-mmkv';
 import {
   View,
   TouchableOpacity,
   Text,
   FlatList,
   TextInput,
+  Button,
   Pressable,
 } from 'react-native';
 import {BackIcon, Checkbox} from '../components/BackIcon';
@@ -24,7 +27,9 @@ export default function PageTest3({route, navigation}) {
   const [Quests, setQuests] = useState([]);
 
   const [questList, setQuestList] = useState('');
+  const [questTypeName, setQuestTypeName] = useState('');
   const [deleteState, setDeleteState] = useState(false);
+  const [notaRedacao, setNotaRedacao] = useState(0);
 
   const activate = useSelector(state => state.counter.getQuestList);
 
@@ -58,6 +63,21 @@ export default function PageTest3({route, navigation}) {
     setQuests(updateQuery.getQuests(questList));
   };
 
+  const selectData = QuestType.map((q, index) => ({
+    key: index.toString(),
+    name: q.name,
+    value: q.value,
+  }));
+
+  const handleQuestType = val => {
+    const selectedObj = selectData.find(item => item.value === val);
+    setQuestList(selectedObj.value);
+    setQuests(updateQuery.getQuests(selectedObj.value));
+    dispatch(changeQuestList(selectedObj.value));
+    setQuestTypeName(selectedObj.name);
+    console.log(selectedObj.name);
+  };
+
   useFocusEffect(
     useCallback(() => {
       //Quando vai para outra pagina
@@ -86,13 +106,9 @@ export default function PageTest3({route, navigation}) {
         <View style={{gap: 10}}>
           <View>
             <SelectList
-              setSelected={val => {
-                setQuestList(val);
-                setQuests(updateQuery.getQuests(val));
-                dispatch(changeQuestList(val));
-              }}
+              setSelected={handleQuestType} // Pass handleQuestType directly
               data={QuestType}
-              placeholder="mainQuests"
+              placeholder={questTypeName}
               search={false}
               dropdownTextStyles={{color: 'white', fontSize: 20}}
               boxStyles={{
@@ -137,8 +153,7 @@ export default function PageTest3({route, navigation}) {
                 style={{flex: 1}}>
                 <Text
                   style={[styles.textStyle, {fontSize: 25, marginLeft: 10}]}>
-                  Fazer {item.quantity}
-                  {' de '}
+                  Do {item.quantity}x{' of '}
                   {item.topic}
                 </Text>
               </TouchableOpacity>
