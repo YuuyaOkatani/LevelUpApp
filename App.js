@@ -12,6 +12,8 @@ import {Provider} from 'react-redux';
 import store from './functions/store.js';
 import PageTest7 from './pages/PageTest7.js';
 import PageTest8 from './pages/PageTest8.js';
+import PageTest0 from './pages/PageTest0.js';
+import PageTest9 from './pages/PageTest9.js';
 
 /// Atualizado em 05/04/2025
 export default function App() {
@@ -20,8 +22,10 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="homepage"
+          initialRouteName="login"
           screenOptions={{headerShown: false}}>
+          <Stack.Screen name="login" component={PageTest0} />
+          <Stack.Screen name="signin" component={PageTest9} />
           <Stack.Screen name="homepage" component={PageTest1} />
           <Stack.Screen name="newquest" component={PageTest2} />
           <Stack.Screen name="questquery" component={PageTest3} />

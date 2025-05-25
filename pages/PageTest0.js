@@ -7,6 +7,7 @@ import {act, useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {getApp} from '@react-native-firebase/app';
 import DBquery from '../functions/DBquery';
+
 export default function PageTest0({route, navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +79,7 @@ export default function PageTest0({route, navigation}) {
                 onChangeText={e => setPassword(e)}
                 style={[styles.textStyle, {fontSize: 15}]}></TextInput>
             </View>
-            <View>
+            <View style={{marginTop: 20}}>
               <TouchableOpacity onPress={login} style={styles.addQuestButton}>
                 <Text style={styles.textStyle}>Login</Text>
               </TouchableOpacity>
@@ -96,7 +97,6 @@ export default function PageTest0({route, navigation}) {
         </View>
       )}
 
-      
       {loading && (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.textStyle}>Loading...</Text>

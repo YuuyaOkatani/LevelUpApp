@@ -12,6 +12,9 @@ import {
   APP_ID,
   MEASUREMENT_ID,
 } from '@env';
+import {getFirestore} from 'firebase/firestore';
+
+import auth from '@react-native-firebase/auth';
 
 const firebaseConfig = {
   apiKey: `${APIKEY}`,
@@ -25,5 +28,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
+export const firebaseAuth = auth();
+// export const firebaseAuth = getAuth(app);

@@ -120,7 +120,7 @@ class DBquery {
 
   Recover = async () => {
     try {
-     
+  ;
       const uid = firebaseAuth.currentUser.uid;
       const snapshot = await get(ref(database, `users/${uid}/main`));
       let snapshotGetted = snapshot.val();

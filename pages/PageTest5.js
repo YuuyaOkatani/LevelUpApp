@@ -9,11 +9,7 @@ import {styles} from '../styles/Styles';
 
 import {getDatabase, ref, remove, update} from 'firebase/database';
 import {MMKV} from 'react-native-mmkv';
-import {getApp} from '@react-native-firebase/app';
 import {ScrollView} from 'react-native-gesture-handler';
-import bcrypt from 'bcrypt-react-native';
-import {initializeAuth} from 'firebase/auth';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import {database, firebaseAuth} from '../api/firebaseConfig';
 
 export default function PageTest5({navigation}) {
@@ -21,6 +17,7 @@ export default function PageTest5({navigation}) {
   const [sure, setSure] = useState(false);
   const [deleteList, setDeleteList] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const saltRounds = 10;
   let updateQuery = new DBquery();
   let storage = new MMKV();
   async function logout() {
@@ -36,10 +33,8 @@ export default function PageTest5({navigation}) {
 
       num++;
 
-    
       const uid = firebaseAuth.currentUser.uid;
 
-      console.log(uid);
       try {
         await remove(ref(database, `/users/${uid}/main/`));
 
@@ -66,7 +61,7 @@ export default function PageTest5({navigation}) {
   return (
     <Container>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={{flexDirection: 'row', marginBottom: 20}}>
+        <View style={{flexDirection: 'row', marginBottom: 10}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <BackIcon />
           </TouchableOpacity>

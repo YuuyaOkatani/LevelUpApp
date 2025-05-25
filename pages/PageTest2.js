@@ -20,6 +20,7 @@ import {MMKV} from 'react-native-mmkv';
 import DBquery from '../functions/DBquery';
 import {useDispatch} from 'react-redux';
 import {changeQuestList} from '../functions/counterReducer';
+import {QuestType} from '../functions/System';
 
 export default function PageTest2({route, navigation}) {
   const [questName, setQuestName] = useState('');
@@ -44,9 +45,9 @@ export default function PageTest2({route, navigation}) {
 
     let Questies = collectionString ? JSON.parse(collectionString) : [];
     try {
-      if (!selectedTopico) {
+      if (!selectedTopico || selectedTopico == '') {
         setError(true);
-        alert('Preencha todos os campos');
+        alert('Insufficient data');
         return;
       } else {
         setError(false);
@@ -112,7 +113,9 @@ export default function PageTest2({route, navigation}) {
               setSelectedTopico(val);
             }}
             data={questoes}
-            placeholder="Select topic"
+            placeholder={
+              selectedTopico == '' ? 'Select a topic' : selectedTopico
+            }
             search={false}
             dropdownTextStyles={[styles.textStyle, {fontSize: 20}]}
             boxStyles={{
