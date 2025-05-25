@@ -120,8 +120,7 @@ class DBquery {
 
   Recover = async () => {
     try {
-      // const salt = await bcrypt.getSalt(saltRounds);
-      // const hash = await bcrypt.hash(salt, firebaseAuth.currentUser.email);
+     
       const uid = firebaseAuth.currentUser.uid;
       const snapshot = await get(ref(database, `users/${uid}/main`));
       let snapshotGetted = snapshot.val();

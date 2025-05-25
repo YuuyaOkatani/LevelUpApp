@@ -95,6 +95,13 @@ export default function PageTest0({route, navigation}) {
           </ScrollView>
         </View>
       )}
+
+      
+      {loading && (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={styles.textStyle}>Loading...</Text>
+        </View>
+      )}
     </Container>
   );
 }
