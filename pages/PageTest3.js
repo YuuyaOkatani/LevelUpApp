@@ -19,7 +19,7 @@ import {styles} from '../styles/Styles';
 
 import {useFocusEffect} from '@react-navigation/native';
 import {QuestType} from '../functions/System';
-import {SelectList} from 'react-native-dropdown-select-list';
+import {SelectList} from '../components/react-native-dropdown-select-list';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeQuestList} from '../functions/counterReducer';
 
@@ -75,7 +75,6 @@ export default function PageTest3({route, navigation}) {
     setQuests(updateQuery.getQuests(selectedObj.value));
     dispatch(changeQuestList(selectedObj.value));
     setQuestTypeName(selectedObj.name);
-    console.log(selectedObj.name);
   };
 
   useFocusEffect(

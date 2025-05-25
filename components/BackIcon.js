@@ -6,6 +6,12 @@ import Svg, {
   Rect,
   Line,
   Image,
+  Polygon,
+  LinearGradient,
+  Stop,
+  Defs,
+  ClipPath,
+  Mask,
 } from 'react-native-svg';
 
 export const BackIcon = ({size = 40, color = 'white'}) => (
@@ -85,3 +91,109 @@ export const AddIcon = ({size = 40, color = 'white'}) => (
     />
   </Svg>
 );
+export const EpicIcon = ({size = 100, borderRadius = 10}) => {
+  const halfSize = size / 2;
+  const triangleOffset = size * 0.35;
+  const prismOffset = size * 0.15;
+  const prismHeight = size * 0.3;
+  const prismWidth = size * 0.3;
+
+  return (
+    <Svg height={size} width={size}>
+      <Defs>
+        {/* ClipPath para arredondar as bordas */}
+        <ClipPath id="roundRect">
+          <Rect
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+            rx={borderRadius}
+            ry={borderRadius}
+          />
+        </ClipPath>
+
+        {/* Mask para aplicar o recorte */}
+        <Mask id="mask">
+          <Rect x="0" y="0" width="100%" height="100%" fill="white" />
+        </Mask>
+      </Defs>
+
+      {/* Fundo arredondado */}
+      <Rect
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill="#001f3f"
+        rx={borderRadius}
+        ry={borderRadius}
+        clipPath="url(#roundRect)" // Aplica o arredondamento
+        mask="url(#mask)"
+      />
+
+      {/* Triângulo superior (apenas contorno branco) */}
+      <Polygon
+        points={`${halfSize},${halfSize - triangleOffset} ${
+          halfSize + triangleOffset
+        },${halfSize} ${halfSize - triangleOffset},${halfSize}`}
+        fill="none"
+        stroke="white"
+        strokeWidth="2"
+      />
+
+      {/* Triângulo inferior (apenas contorno branco) */}
+      <Polygon
+        points={`${halfSize},${halfSize + triangleOffset} ${
+          halfSize - triangleOffset
+        },${halfSize} ${halfSize + triangleOffset},${halfSize}`}
+        fill="none"
+        stroke="white"
+        strokeWidth="2"
+      />
+
+      {/* Prisma (apenas contorno branco) */}
+      <Path
+        d={`M${halfSize},${halfSize - prismOffset} L${
+          halfSize + prismWidth / 2
+        },${halfSize - prismOffset + prismHeight / 2} L${
+          halfSize + prismWidth / 2
+        },${halfSize + prismHeight / 2} L${halfSize},${
+          halfSize + prismOffset
+        } L${halfSize - prismWidth / 2},${
+          halfSize + prismOffset - prismHeight / 2
+        } L${halfSize - prismWidth / 2},${halfSize - prismHeight / 2} Z`}
+        fill="none"
+        stroke="white"
+        strokeWidth="1"
+      />
+      <Path
+        d={`M${halfSize + prismWidth / 2},${
+          halfSize - prismOffset + prismHeight / 2
+        } L${halfSize + prismWidth / 2},${
+          halfSize + prismHeight / 2
+        } L${halfSize},${halfSize + prismOffset}`}
+        stroke="white"
+        strokeWidth="0.5"
+      />
+      <Path
+        d={`M${halfSize - prismWidth / 2},${
+          halfSize - prismOffset + prismHeight / 2
+        } L${halfSize - prismWidth / 2},${
+          halfSize + prismHeight / 2
+        } L${halfSize},${halfSize + prismOffset}`}
+        stroke="white"
+        strokeWidth="0.5"
+      />
+      <Path
+        d={`M${halfSize},${halfSize - prismOffset} L${
+          halfSize + prismWidth / 2
+        },${halfSize - prismOffset + prismHeight / 2} L${
+          halfSize - prismWidth / 2
+        },${halfSize - prismOffset + prismHeight / 2}`}
+        stroke="white"
+        strokeWidth="0.5"
+      />
+    </Svg>
+  );
+};

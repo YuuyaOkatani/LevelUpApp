@@ -1,5 +1,5 @@
 import {MMKV} from 'react-native-mmkv';
-import {database} from '../api/firebaseConfig';
+import {database, firebaseAuth} from '../api/firebaseConfig';
 import {get, ref} from 'firebase/database';
 
 class DBquery {
@@ -120,16 +120,19 @@ class DBquery {
 
   Recover = async () => {
     try {
-      const snapshot = await get(ref(database, '/main'));
+      // const salt = await bcrypt.getSalt(saltRounds);
+      // const hash = await bcrypt.hash(salt, firebaseAuth.currentUser.email);
+      const uid = firebaseAuth.currentUser.uid;
+      const snapshot = await get(ref(database, `users/${uid}/main`));
       let snapshotGetted = snapshot.val();
       if (snapshotGetted) {
         let collectedData = [
-          {list: 'mainQuests', ...snapshotGetted.mainQuests},
-          {list: 'currentQuests', ...snapshotGetted.currentQuests},
-          {list: 'completedQuests', ...snapshotGetted.completedQuests},
-          {list: 'dailyQuests', ...snapshotGetted.dailyQuests},
-          {list: 'sideQuests', ...snapshotGetted.sideQuests},
-          {list: 'questoes', ...snapshotGetted.questoes},
+          {list: 'mainQuests', ...snapshotGetted['mainQuests ']},
+          {list: 'currentQuests', ...snapshotGetted['currentQuests ']},
+          {list: 'completedQuests', ...snapshotGetted['completedQuests ']},
+          {list: 'dailyQuests', ...snapshotGetted['dailyQuests ']},
+          {list: 'sideQuests', ...snapshotGetted['sideQuests ']},
+          {list: 'questoes', ...snapshotGetted['questoes ']},
         ];
 
         collectedData.forEach(element => {
@@ -141,7 +144,7 @@ class DBquery {
         });
       }
     } catch (error) {
-      console.log('Erro ao tentar acessar dados: ', error);
+      console.log('algo deu errado ' + error);
     }
   };
 

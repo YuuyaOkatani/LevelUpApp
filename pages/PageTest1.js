@@ -21,8 +21,6 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeQuestList} from '../functions/counterReducer';
 
-import {database} from '../api/firebaseConfig';
-import {get, ref} from 'firebase/database';
 import {MMKV} from 'react-native-mmkv';
 export default function PageTest1({navigation}) {
   const [deleteState, setDeleteState] = useState(false);
@@ -38,11 +36,6 @@ export default function PageTest1({navigation}) {
   const dispatch = useDispatch();
   let updateQuery = new DBquery();
   let storage = new MMKV();
-
-  async function activateQuestoes() {
-    const snapshot = await get(ref(database, '/main/questoes'));
-    let snapshotGetted = snapshot.val();
-  }
 
   const setCompletedList = itemSelect => {
     let item = updateQuery
@@ -151,7 +144,6 @@ export default function PageTest1({navigation}) {
             onPress={() => {
               navigation.navigate('questquery');
               dispatch(changeQuestList('mainQuests'));
-              activateQuestoes();
             }}>
             <AddIcon />
           </TouchableOpacity>

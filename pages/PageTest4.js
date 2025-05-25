@@ -16,7 +16,7 @@ import {styles} from '../styles/Styles';
 
 import {useFocusEffect} from '@react-navigation/native';
 import {QuestType} from '../functions/System';
-import {SelectList} from 'react-native-dropdown-select-list';
+import {SelectList} from '../components/react-native-dropdown-select-list';
 import DBquery from '../functions/DBquery';
 import {useDispatch, useSelector} from 'react-redux';
 import {

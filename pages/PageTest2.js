@@ -15,7 +15,7 @@ import {BackIcon} from '../components/BackIcon';
 import {styles} from '../styles/Styles';
 
 import {useFocusEffect} from '@react-navigation/native';
-import {SelectList} from 'react-native-dropdown-select-list';
+import {SelectList} from '../components/react-native-dropdown-select-list';
 import {MMKV} from 'react-native-mmkv';
 import DBquery from '../functions/DBquery';
 import {useDispatch} from 'react-redux';
@@ -69,9 +69,7 @@ export default function PageTest2({route, navigation}) {
 
         updateQuery.addQuest(QuestRef, questList);
       }
-    } catch (error) {
-      console.log('Erro ao tentar acessar dados: ', error);
-    }
+    } catch (error) {}
   };
 
   useFocusEffect(

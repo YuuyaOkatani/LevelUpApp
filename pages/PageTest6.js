@@ -32,9 +32,7 @@ export default function PageTest6({navigation}) {
       setLevelValue();
 
       // Retorna uma função de limpeza se necessário
-      return () => {
-        console.log('Saindo da tela');
-      };
+      return () => {};
     }, []),
   );
 
